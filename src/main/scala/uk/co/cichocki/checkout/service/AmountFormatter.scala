@@ -4,7 +4,7 @@ class AmountFormatter {
 
   def format(amount: Int): String = {
     if (amount < 0) throw new IllegalArgumentException("negative")
-    ???
+    s"£${amount / 100.00}"
   }
 }
 

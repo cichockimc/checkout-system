@@ -8,9 +8,11 @@ object Item extends Enumeration {
   type Item = Value
   val APPLE, ORANGE = Value
 
-  def maybeWithName(name: String): Option[Value] = values.find(_.toString == name.toUpperCase)
+  def maybeWithName(name: String): Either[Value, String] = values.find(_.toString == name.toUpperCase)
+    .map(Left(_))
+    .getOrElse(Right(name))
 
-  def toObject: HasPrice = this match {
+  def toObject(item: Item): HasPrice = item match {
     case APPLE => ItemBase(applePrice)
     case ORANGE => ItemBase(orangePrice)
   }

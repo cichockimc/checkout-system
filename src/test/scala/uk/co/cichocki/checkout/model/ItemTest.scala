@@ -1,21 +1,21 @@
 package uk.co.cichocki.checkout.model
 
 import org.scalatest.FlatSpec
-import uk.co.cichocki.checkout.model.Item.{APPLE, ORANGE, maybeWithName}
+import uk.co.cichocki.checkout.model.Item.{APPLE, Item, ORANGE, maybeWithName}
 
 class ItemTest extends FlatSpec {
 
   "Item maybeWithName" should "return correct value if recognised" in {
-    assert(maybeWithName("Apple").contains(APPLE))
-    assert(maybeWithName("Orange").contains(ORANGE))
+    assert(maybeWithName("Apple") == Left(APPLE))
+    assert(maybeWithName("Orange") == Left(ORANGE))
   }
 
-  "Item maybeWithName" should "return None if incorrect name" in {
-    assert(maybeWithName("something random").isEmpty)
+  "Item maybeWithName" should "return Right if incorrect name" in {
+    assert(maybeWithName("something random").isInstanceOf[Right[Item, Nothing]])
   }
 
   "Item maybeWithName" should "be case insensitive" in {
-    assert(maybeWithName("apple").contains(APPLE))
-    assert(maybeWithName("OraNGe").contains(ORANGE))
+    assert(maybeWithName("apple") == Left(APPLE))
+    assert(maybeWithName("OraNGe") == Left(ORANGE))
   }
 }

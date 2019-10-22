@@ -9,7 +9,7 @@ class AmountFormatterTest extends FlatSpec {
   private val formatter = AmountFormatter
 
   it should "return string representation of amount in pounds" in {
-    assert(formatter.format(1234) == "12.34")
+    assert(formatter.format(1234) == "£12.34")
   }
 
   it should "throw exception if amount is negative" in {

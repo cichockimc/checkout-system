@@ -14,11 +14,4 @@ class StringToHasPriceMapperTest extends FlatSpec {
     val result = mapper.map(List("Apple", "Apple", "Orange", "Apple"))
     assert(result == List(APPLE, APPLE, ORANGE, APPLE))
   }
-
-  it should "throw an exception if empty list" in {
-    val thrown = intercept[Exception] {
-    }
-    assert(thrown.isInstanceOf[IllegalArgumentException])
-  }
-
 }
