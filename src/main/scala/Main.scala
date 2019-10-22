@@ -1,3 +1,4 @@
+// $COVERAGE-OFF$
 object Main extends App {
   val usage = """
     Usage: Main item1 item2 item3
@@ -5,3 +6,5 @@ object Main extends App {
 
   if(args.length == 0) print(usage)
 }
+
+// $COVERAGE-ON$
