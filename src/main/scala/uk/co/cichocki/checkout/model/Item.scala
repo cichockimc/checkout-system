@@ -2,7 +2,7 @@ package uk.co.cichocki.checkout.model
 
 import uk.co.cichocki.checkout.model.Prices.{applePrice, orangePrice}
 
-private case class ItemBase(override val priceInPence: Integer) extends HasPrice
+private case class ItemBase(override val priceInPence: Int) extends HasPrice
 
 object Item extends Enumeration {
   type Item = Value

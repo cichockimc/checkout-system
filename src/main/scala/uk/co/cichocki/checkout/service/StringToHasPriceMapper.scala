@@ -1,14 +1,10 @@
 package uk.co.cichocki.checkout.service
 
-import uk.co.cichocki.checkout.model.HasPrice
+import uk.co.cichocki.checkout.model.Item.Item
 
 class StringToHasPriceMapper {
 
-  def map(name: String): HasPrice = {
-    ???
-  }
-
-  def map(names: List[String]): List[HasPrice] = ???
+  def map(names: List[String]): List[Item] = ???
 }
 
 object StringToHasPriceMapper extends StringToHasPriceMapper {
