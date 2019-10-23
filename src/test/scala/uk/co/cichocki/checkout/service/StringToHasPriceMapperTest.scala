@@ -14,4 +14,12 @@ class StringToHasPriceMapperTest extends FlatSpec {
     val result = mapper.map(List("Apple", "Apple", "Orange", "Apple"))
     assert(result == List(APPLE, APPLE, ORANGE, APPLE))
   }
+
+  it should "throw an exception if one or more arguments are not valid" in {
+    val thrown = intercept[Exception] {
+      mapper.map(List("What", "Apple", "is", "that"))
+    }
+    assert(thrown.isInstanceOf[IllegalArgumentException])
+    assert(thrown.getMessage == "Illegal arguments(s): What,is,that")
+  }
 }

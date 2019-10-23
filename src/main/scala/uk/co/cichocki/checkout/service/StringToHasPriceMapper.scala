@@ -4,9 +4,20 @@ import uk.co.cichocki.checkout.model.Item.{Item, maybeWithName}
 
 class StringToHasPriceMapper {
 
-  def map(names: List[String]): List[Item] = names.map(maybeWithName).map {
-    case Left(correctValue) => correctValue
-    case Right(wrongValue) => throw new IllegalArgumentException(wrongValue)
+  protected def handleErrors(errors: List[String]) = {
+    // looks too imperative, might have done too much Java recently
+    if (errors.nonEmpty) {
+      throw new IllegalArgumentException(s"Illegal arguments(s): ${errors.mkString(",")}")
+    }
+  }
+
+  def map(names: List[String]): List[Item] = {
+    val eithersTuple: (List[Item], List[String]) = names.map(maybeWithName).partition(_.isLeft) match {
+      case (lefts, rights) =>
+        (lefts.map(_.left.get), rights.map(_.right.get))
+    } // credit given when it's due https://stackoverflow.com/a/51345780
+    handleErrors(eithersTuple._2)
+    eithersTuple._1
   }
 }
 
