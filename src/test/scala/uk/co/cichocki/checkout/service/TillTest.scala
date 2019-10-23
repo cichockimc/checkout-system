@@ -10,7 +10,7 @@ class TillTest extends FlatSpec {
   private val till = Till
 
   it should "calculateCost" in {
-    assert(till.calculateCost(List(APPLE, APPLE, ORANGE, APPLE)) == 205)
+    assert(till.calculateCost(List(APPLE, APPLE, ORANGE, APPLE)) == 145)
   }
 
 }
