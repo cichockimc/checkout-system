@@ -2,7 +2,29 @@ package uk.co.cichocki.checkout.model
 
 import uk.co.cichocki.checkout.model.Prices.{applePrice, orangePrice}
 
-private case class ItemBase(override val priceInPence: Int) extends HasPrice
+abstract class ItemBase(override val priceInPence: Int, val n: Int) extends HasPrice {
+  protected def everyNthItemFree(list: List[HasPrice]) = {
+    list.zipWithIndex.map { case (el, idx) => if ((idx + 1) % n == 0) 0 else el.priceInPence() }.sum
+  }
+}
+
+
+class Apple extends ItemBase(applePrice, 2)
+
+object Apple extends Apple {
+  def buyOneGetOneFree(list: List[Apple]): Int = {
+    everyNthItemFree(list)
+  }
+}
+
+class Orange extends ItemBase(orangePrice, 3)
+
+object Orange extends Orange {
+  def threeForTwo(list: List[Orange]): Int = {
+    everyNthItemFree(list)
+  }
+}
+
 
 object Item extends Enumeration {
   type Item = Value
@@ -17,7 +39,7 @@ object Item extends Enumeration {
     .getOrElse(Right(name))
 
   def toObject(item: Item): HasPrice = item match {
-    case APPLE => ItemBase(applePrice)
-    case ORANGE => ItemBase(orangePrice)
+    case APPLE => new Apple
+    case ORANGE => new Orange
   }
 }
